@@ -1,6 +1,8 @@
 package net.ralfa.examplemod;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.gui.screens.inventory.CreativeInventoryListener;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -11,6 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.ralfa.examplemod.item.ModItems;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -25,6 +28,9 @@ public class ExampleMod
     public ExampleMod(FMLJavaModLoadingContext context)
     {
         IEventBus modEventBus = context.getModEventBus();
+
+        //To register Mod Items
+        ModItems.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -44,9 +50,13 @@ public class ExampleMod
     }
 
     // Add the example block item to the building blocks tab
+    // Adds mod items to existing Vanilla tabs
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
-
+        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS)
+        {
+          event.accept(ModItems.CETA);
+        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
