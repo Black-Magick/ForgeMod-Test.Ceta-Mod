@@ -1,3 +1,12 @@
+Simple mod to test the Forge modding functionalities and Java functions used in Minecraft
+
+
+
+
+-----------------------
+ ORIGINAL README BELOW
+-----------------------
+
 
 Source installation information for modders
 -------------------------------------------
